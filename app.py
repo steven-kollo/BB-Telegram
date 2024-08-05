@@ -1,5 +1,5 @@
-from flask import Flask, render_template
-import threading
+from flask import Flask, render_template, request
+import threading, requests
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
 
@@ -24,18 +24,28 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=reply_markup
     )
 
+
+
 class FlaskThread(threading.Thread):
     def run(self) -> None:
         app = Flask(__name__)
         
-        @app.route('/<chat_id>')
+        @app.route('/<chat_id>', methods=['GET', 'POST'])
         def form(chat_id):
-            return render_template('form.html', chat_id=chat_id)
-        
-        @app.route("/submit/<chat_id>")
-        def submit(chat_id):
-            return "."
-        
+            if request.method == 'POST':
+                text = ""
+                for key, val in request.form.items():
+                    if val != "":
+                        print(key, val)
+                        text = text + val
+                if text != "":
+                    message = f"hello from your telegram bot, here is your text: {text}"
+                    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
+                    print(requests.get(url).json()) # this sends the message
+                return render_template('form.html', chat_id=chat_id)
+            else:
+                return render_template('form.html', chat_id=chat_id)
+
         app.run(threaded=True)
         
 class TelegramThread(threading.Thread):
