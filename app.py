@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 import threading
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
@@ -16,7 +16,7 @@ def main():
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.message.chat.id
     keyboard = [
-        [InlineKeyboardButton("Open form", url=f"google.com/{chat_id}")]
+        [InlineKeyboardButton("Open form", url=f"127.0.0.1:5000/{chat_id}")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text(
@@ -28,12 +28,16 @@ class FlaskThread(threading.Thread):
     def run(self) -> None:
         app = Flask(__name__)
         
-
-        @app.route('/hi')
-        def hello_world():
-            return 'Hello World'
+        @app.route('/<chat_id>')
+        def form(chat_id):
+            return render_template('form.html', chat_id=chat_id)
+        
+        @app.route("/submit/<chat_id>")
+        def submit(chat_id):
+            return "."
+        
         app.run(threaded=True)
-
+        
 class TelegramThread(threading.Thread):
     def run(self) -> None:
         main()
