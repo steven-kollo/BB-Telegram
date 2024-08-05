@@ -10,7 +10,13 @@
             const options = "chat_id=12345&text=hello%20friend"
             const urlParams = new URLSearchParams(window.location.search);
             const chat_id = urlParams.get('chat_id')
-            console.log(chat_id)
+            const text = "Hello hello! Fill the form to submit your legal help request pls"
+            const reply_markup = JSON.stringify({
+                inline_keyboard: [
+                    [{ text: 'Open form', url: 'https://google.com?chat_id=516248799' }]
+                ]
+            })
+            const params = `chat_id=${chat_id}&text=${text}&reply_markup=${reply_markup}`
             function submit() {
                 var xhr = new XMLHttpRequest()
                 xhr.onreadystatechange = function () {
@@ -18,7 +24,7 @@
                         console.log(xhr.response)
                     }
                 }
-                xhr.open('get', `https://api.telegram.org/bot${key}/sendMessage?chat_id=${chat_id}&text="Hello"`, true)
+                xhr.open('post', `https://api.telegram.org/bot${key}/sendMessage?${params}`, true)
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
                 xhr.send()
             }
