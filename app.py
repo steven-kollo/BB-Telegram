@@ -24,8 +24,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=reply_markup
     )
 
-
-
 class FlaskThread(threading.Thread):
     def run(self) -> None:
         app = Flask(__name__)
