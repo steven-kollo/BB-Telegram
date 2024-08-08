@@ -8,7 +8,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <style>
         .badge {
@@ -22,44 +21,13 @@
         <p>This is a template form, fill it to calculate the price and request help</p>
         <hr>
         <form method="post" action="/{{chat_id}}">
-            <div>
-                <!-- GROUP 1 -->
-                <div class="form-check">
-                    <input data-toggle="collapse" href="#group1Collapse" role="button" aria-expanded="false" aria-controls="group1Collapse" class="form-check-input" type="checkbox" value="" id="group1Check" name="g1">
-                    <label class="form-check-label" for="group1Check">Group 1</label>   
-                </div>
-                <div class="ml-3">
-                    <div class="collapse" id="group1Collapse">
-                        <div class="form-group">
-                            <!-- SUB 1 -->
-                            <div class="form-check">
-                                <input data-toggle="collapse" href="#group1Sub1Collapse" role="button" aria-expanded="false" aria-controls="group1Sub1Collapse" class="form-check-input" type="checkbox" value="" id="defaultCheck1" name="g1s1">
-                                <label class="form-check-label" for="defaultCheck1">Group 1 Subgroup 1 <span class="badge badge-primary">2 500₽</span></label>
-                            </div>
-                            <div class="collapse ml-3" id="group1Sub1Collapse">
-                                <textarea placeholder="Subgroup 1 of group 1 tip" class="form-control" id="exampleFormControlTextarea1" rows="3" name="g1s1t"></textarea>
-                            </div>
-                            <!-- SUB 2 -->
-                            <div class="form-check">
-                                <input data-toggle="collapse" href="#group1Sub2Collapse" role="button" aria-expanded="false" aria-controls="group1Sub2Collapse" class="form-check-input" type="checkbox" value="" id="defaultCheck2" name="g1s2">
-                                <label class="form-check-label" for="defaultCheck2">Group 1 Subgroup 2 <span class="badge badge-primary">2 500₽</span></label>
-                            </div>
-                            <div class="collapse ml-3" id="group1Sub2Collapse">
-                                <textarea class="form-control" id="exampleFormControlTextarea2" rows="3" name="g1s2t"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div id="group-container">
+                
             </div>
-            
-    
             <hr>
-            
             <button type="submit" class="btn btn-success">Submit</button>
         </form>
     </div>
-    <script>
-
-    </script>
+    <script src="{{url_for('static', filename='form.js')}}"></script>
 </body>
 </html> 
