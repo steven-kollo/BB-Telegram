@@ -9,11 +9,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <style>
-        .badge {
-            vertical-align: middle;
-        }
-    </style>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='form.css') }}">
+
 </head>
 <body>
     <div class="container">
@@ -28,6 +25,8 @@
             <button type="submit" class="btn btn-success">Submit</button>
         </form>
     </div>
-    <script src="{{url_for('static', filename='form.js')}}"></script>
+    
+    <script src="{{url_for('static', filename='form-builder.js')}}"></script>
+    <script src="{{url_for('static', filename='form-handler.js')}}"></script>
 </body>
 </html> 
