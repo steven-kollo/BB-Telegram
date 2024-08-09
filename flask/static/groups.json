@@ -1,0 +1,40 @@
+{
+    "groups": [
+        {
+            "name": "⚖️ Legal Services",
+            "description": "legal services description",
+            "items": [
+                {
+                    "name": "my name 1",
+                    "description": "my description 1",
+                    "tip": "my tip 1",
+                    "price": "2 500₽"
+                },
+                {
+                    "name": "me name 2",
+                    "description": "my description 2",
+                    "tip": "my tip 2",
+                    "price": "3 500₽"
+                }
+            ]
+        },
+        {
+            "name": "Accounting",
+            "description": "accounting description",
+            "items": [
+                {
+                    "name": "my name 1",
+                    "description": "my description 1",
+                    "tip": "my tip 1",
+                    "price": "2 500₽"
+                },
+                {
+                    "name": "me name 2",
+                    "description": "my description 2",
+                    "tip": "my tip 2",
+                    "price": "3 500₽"
+                }
+            ]
+        }
+    ]
+}

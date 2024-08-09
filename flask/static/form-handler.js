@@ -12,4 +12,3 @@ function freeze_group_on_select(group_id) {
 $('.service-checkbox').click(function(e) {
     freeze_group_on_select(e.target.id[1])
 })
-  

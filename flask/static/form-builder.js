@@ -1,55 +1,10 @@
-const groups = [
-    {
-        "id": 1,
-        "name": "⚖️ Legal Services",
-        "description": "legal services description",
-        "items": [
-            {
-                "g": 1,
-                "s": 1,
-                "name": "my name 1",
-                "description": "my description 1",
-                "tip": "my tip 1",
-                "price": "2 500₽"
-            },
-            {
-                "g": 1,
-                "s": 2,
-                "name": "me name 2",
-                "description": "my description 2",
-                "tip": "my tip 2",
-                "price": "3 500₽"
-            }
-        ]
-    },
-    {
-        "id": 2,
-        "name": "Accounting",
-        "description": "accounting description",
-        "items": [
-            {
-                "g": 2,
-                "s": 1,
-                "name": "my name 1",
-                "description": "my description 1",
-                "tip": "my tip 1",
-                "price": "2 500₽"
-            },
-            {
-                "g": 2,
-                "s": 2,
-                "name": "me name 2",
-                "description": "my description 2",
-                "tip": "my tip 2",
-                "price": "3 500₽"
-            }
-        ]
-    },
-]
 
-add_services(groups)
+const json_g = fetch("/static/groups.json") 
+    .then(response => response.json()) 
+    .then(json => add_services(json.groups))
 
 function add_services(groups) {
+    groups = add_ids(groups)
     const parent = document.getElementById("group-container")
     for (const group of groups) {
         const group_container = document.createElement("div")
@@ -68,6 +23,17 @@ function add_services(groups) {
             subgroup_container.appendChild(element)
         }
     }
+}
+
+function add_ids(groups) {
+    for (let g = 0; g < groups.length; g++) {
+        groups[g].id = g
+        for (let s = 0; s < groups.length; s++) {
+            groups[g].items[s].s = s
+            groups[g].items[s].g = g
+        }
+    }
+    return groups
 }
 
 function build_HTML_group_checkbox(group) {
