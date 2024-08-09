@@ -3,6 +3,7 @@ const json_g = fetch("/static/groups.json")
     .then(response => response.json()) 
     .then(json => add_services(json.groups))
 
+
 function add_services(groups) {
     groups = add_ids(groups)
     const parent = document.getElementById("group-container")
@@ -23,6 +24,9 @@ function add_services(groups) {
             subgroup_container.appendChild(element)
         }
     }
+    $('.service-checkbox').click(function(e) {
+        freeze_group_on_select(e.target.id[1])
+    })
 }
 
 function add_ids(groups) {
@@ -61,7 +65,7 @@ function build_HTML_item(item) {
     const element = document.createElement('div')
     element.innerHTML = `
     <div class="form-check">
-        <input data-toggle="collapse" role="button" aria-expanded="false" class="form-check-input" type="checkbox" href="#g${item.g}s${item.s}c" aria-controls="g${item.g}s${item.s}c" id="g${item.g}s${item.s}" name="g${item.g}s${item.s}">
+        <input data-toggle="collapse" role="button" aria-expanded="false" class="form-check-input service-checkbox" type="checkbox" href="#g${item.g}s${item.s}c" aria-controls="g${item.g}s${item.s}c" id="g${item.g}s${item.s}" name="g${item.g}s${item.s}">
         <label class="form-check-label" for="g${item.g}s${item.s}">${item.name}<span class="badge badge-primary">${item.price}</span></label>
     </div>
     <div class="collapse ml-3" id="g${item.g}s${item.s}c">

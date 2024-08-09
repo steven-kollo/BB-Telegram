@@ -1,4 +1,5 @@
 function freeze_group_on_select(group_id) {
+    console.log(group_id)
     const checks = $.map($(`#g${group_id}c > div > div > .form-check > input`), input => input.checked)
     if (checks.includes(true)) {
         document.getElementById(`g${group_id}ch`).parentNode.setAttribute("onclick", "return false")
@@ -9,6 +10,4 @@ function freeze_group_on_select(group_id) {
     }
 }
 
-$('.service-checkbox').click(function(e) {
-    freeze_group_on_select(e.target.id[1])
-})
+
