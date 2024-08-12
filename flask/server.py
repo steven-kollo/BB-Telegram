@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 import os, json
-from types import SimpleNamespace
 from flask import Flask, render_template, request, url_for
 import threading, requests
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
-from pymongo import MongoClient
+# from pymongo import MongoClient
 
 json_url = os.path.join(
     os.path.realpath(os.path.dirname(__file__)), 
@@ -44,7 +43,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 class FlaskThread(threading.Thread):
     def run(self) -> None:
         app = Flask(__name__, static_url_path='/static')
-        #client = MongoClient("mongo:27017")
+        #mongo_client = MongoClient("mongo:27017")
+
         # TODO add real server address
         # URL = "0.0.0.0"
         
