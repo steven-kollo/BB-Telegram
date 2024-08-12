@@ -51,6 +51,7 @@ class FlaskThread(threading.Thread):
         @app.route('/<chat_id>', methods=['GET', 'POST'])
         def form(chat_id):
             if request.method == 'POST':
+                print(request.form)
                 text = self.parse_user_fields(form=request.form)
                 if text != "":
                     message = f"hello from your telegram bot, here is your text:\n{text}"
@@ -64,9 +65,18 @@ class FlaskThread(threading.Thread):
 
     def parse_user_fields(self, form):
         text = ""
+        personal = {
+            "name": "",
+            "city": "",
+            "email": ""
+        }
         for key, val in form.items():
             if "t" in key and val != "":
-                text = text + self.build_service_line(key, val)
+                if "-t" in key: 
+                    personal[key.split("-")[0]] = val
+                else:
+                    text = text + self.build_service_line(key, val)
+        text = f"{personal['name']},city {personal['city']}, {personal['email']}\n\n" + text
         return text
     
     def build_service_line(self, key, val):

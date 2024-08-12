@@ -13,17 +13,41 @@
 </head>
 <body>
     <div class="container">
-        <button hidden onclick="back_btn()" id="submit-btn" class="btn btn-outline-success btn-sm"><i class="fas fa-angle-left"></i> back</button>
-        
+        <button hidden onclick="back_btn()" id="back-btn" class="btn btn-outline-success btn-sm"><i class="fas fa-angle-left"></i> back</button>
         <h1 class="mt-3">Legal Help Page</h1>
         <p>This is a template form, fill it to calculate the price and request help</p>
         <hr>
-        <form class="" id="form" method="post" action="/{{chat_id}}">
-            <div id="group-container">
-                
+        <form id="form" method="post" action="/{{chat_id}}">
+            <div id="group-container"></div>
+            <div hidden class="was-validated" id="personal-container">
+                <div class="mb-3">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Name</div>
+                        </div>
+                        <input type="text" required class="form-control is-invalid" id="name-t" name="name-t" required aria-describedby="personal-name-help" placeholder="John Doe">
+                    </div>
+                    <small id="personal-name-help" class="form-text text-muted">We'll never share your name with anyone else.</small>
+                </div>
+                <div class="mb-3">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">City</div>
+                        </div>
+                        <input type="text" required class="form-control is-invalid" id="city-t" name="city-t" required aria-describedby="personal-city-help" placeholder="Santiago">
+                    </div>
+                    <small id="personal-city-help" class="form-text text-muted">We'll never share your city with anyone else.</small>
+                </div>
+                <div class="mb-3">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Email</div>
+                        </div>
+                        <input type="email" required class="form-control is-invalid" id="email-t" name="email-t" required aria-describedby="personal-email-help" placeholder="ivan_ivanov@mail.com">
+                    </div>
+                    <small id="personal-email-help" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
             </div>
-
-            
         </form>
         <hr>
         <button onclick="handle_submit()" id="submit-btn" class="btn btn-success">Submit</button>

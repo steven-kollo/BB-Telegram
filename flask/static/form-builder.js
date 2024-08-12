@@ -1,4 +1,3 @@
-
 const json_g = fetch("/static/groups.json") 
     .then(response => response.json()) 
     .then(json => add_services(json.groups))

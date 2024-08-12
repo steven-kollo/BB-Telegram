@@ -4,7 +4,6 @@ function handle_service_checkbox(e) {
     set_required_on_select()
 }
 
-
 function freeze_group_on_select(group_id) {
     console.log(group_id)
     const checks = $.map($(`#g${group_id}c > div > div > .form-check > input`), input => input.checked)
@@ -31,10 +30,7 @@ function set_required_on_select() {
 }
 
 function handle_submit() {
-    console.log(check_filled_fields())
-    if (check_filled_fields()) {
-        // TODO
-        // show_personal_fields()
+    if (check_filled_fields() && check_personal_fields()) {
         $("#form").submit()
     } else {
         console.log("handle submit")
@@ -53,6 +49,19 @@ function check_filled_fields() {
     return checked && filled
 }
 
+function check_personal_fields() {
+    const personal = document.getElementById("personal-container")
+    if (personal.hidden) {
+        personal.hidden = false
+        document.getElementById("group-container").hidden = true
+        document.getElementById("back-btn").hidden = false
+    } else {
+        return true
+    }
+}
+
 function back_btn() {
-    console.log("Back")
+    document.getElementById("personal-container").hidden = true
+    document.getElementById("group-container").hidden = false
+    document.getElementById("back-btn").hidden = true
 }
