@@ -24,7 +24,7 @@ function add_services(groups) {
         }
     }
     $('.service-checkbox').click(function(e) {
-        freeze_group_on_select(e.target.id[1])
+        handle_service_checkbox(e)
     })
 }
 
@@ -67,8 +67,8 @@ function build_HTML_service(item) {
             <input data-toggle="collapse" role="button" aria-expanded="false" class="form-check-input service-checkbox" type="checkbox" href="#g${item.g}s${item.s}c" aria-controls="g${item.g}s${item.s}c" id="g${item.g}s${item.s}" name="g${item.g}s${item.s}">
             <label class="form-check-label" for="g${item.g}s${item.s}">${item.name}<span class="badge badge-primary">${item.price}</span></label>
         </div>
-        <div class="collapse ml-3" id="g${item.g}s${item.s}c">
-            <textarea placeholder="${item.tip}" class="form-control" id="g${item.g}s${item.s}t" rows="3" name="g${item.g}s${item.s}t"></textarea>
+        <div class="was-validated collapse ml-3" id="g${item.g}s${item.s}c">
+            <textarea placeholder="${item.tip}" class="form-control is-invalid"  id="g${item.g}s${item.s}t" rows="3" name="g${item.g}s${item.s}t"></textarea>
         </div>
     `
     service.setAttribute("id", `g${item.g}s${item.s}e`)

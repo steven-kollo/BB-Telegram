@@ -10,20 +10,23 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='form.css') }}">
-
 </head>
 <body>
     <div class="container">
+        <button hidden onclick="back_btn()" id="submit-btn" class="btn btn-outline-success btn-sm"><i class="fas fa-angle-left"></i> back</button>
+        
         <h1 class="mt-3">Legal Help Page</h1>
         <p>This is a template form, fill it to calculate the price and request help</p>
         <hr>
-        <form method="post" action="/{{chat_id}}">
+        <form class="" id="form" method="post" action="/{{chat_id}}">
             <div id="group-container">
                 
             </div>
-            <hr>
-            <button type="submit" class="btn btn-success">Submit</button>
+
+            
         </form>
+        <hr>
+        <button onclick="handle_submit()" id="submit-btn" class="btn btn-success">Submit</button>
     </div>
     <script src="{{url_for('static', filename='form-builder.js')}}"></script>
     <script src="{{url_for('static', filename='form-handler.js')}}"></script>
