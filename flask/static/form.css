@@ -2,8 +2,20 @@ body {
     background-color: #FAFAFA;
 }
 
-h1, p {
+p {
+    margin-bottom: 0.7em;
+    color: #333333;
+}
+
+h1 {
+    color: #333333;
     text-align: center;
+}
+
+.p-center {
+    color: #999999 !important;
+    text-align: center;
+    font-size: large;
 }
 
 .container {

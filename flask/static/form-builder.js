@@ -7,6 +7,7 @@ function add_services(groups) {
     const parent = document.getElementById("group-container")
     for (const group of groups) {
         const group_container = document.createElement("div")
+        group_container.setAttribute("class", "mb-3")
         group_container.setAttribute("id", `g${group.id}`)
         parent.appendChild(group_container)
 
@@ -30,7 +31,7 @@ function add_services(groups) {
 function add_ids(groups) {
     for (let g = 0; g < groups.length; g++) {
         groups[g].id = g
-        for (let s = 0; s < groups.length; s++) {
+        for (let s = 0; s < groups[g].items.length; s++) {
             groups[g].items[s].s = s
             groups[g].items[s].g = g
         }
@@ -62,11 +63,12 @@ function build_HTML_group_collapse(group) {
 function build_HTML_service(item) {
     const service = document.createElement('div')
     service.innerHTML = `
-        <div class="form-check">
+        <div class="form-check mt-3">
             <input data-toggle="collapse" role="button" aria-expanded="false" class="form-check-input service-checkbox" type="checkbox" href="#g${item.g}s${item.s}c" aria-controls="g${item.g}s${item.s}c" id="g${item.g}s${item.s}" name="g${item.g}s${item.s}">
-            <label class="form-check-label" for="g${item.g}s${item.s}">${item.name}<span class="badge badge-primary">${item.price}</span></label>
+            <label class="form-check-label" for="g${item.g}s${item.s}">${item.name}<span class="ml-2 badge badge-secondary">${item.price}</span></label>
         </div>
-        <div class="was-validated collapse ml-3" id="g${item.g}s${item.s}c">
+        <small style="margin-left: 1.7em; margin-top: 0em;" class="form-text text-muted">${item.description}</small>
+        <div style="margin-left: 1.3em;" class="was-validated collapse mt-1" id="g${item.g}s${item.s}c">
             <textarea placeholder="${item.tip}" class="form-control is-invalid"  id="g${item.g}s${item.s}t" rows="3" name="g${item.g}s${item.s}t"></textarea>
         </div>
     `
