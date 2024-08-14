@@ -63,3 +63,22 @@ function back_btn() {
     document.getElementById("group-container").hidden = false
     document.getElementById("back-btn").hidden = true
 }
+
+function add_check_service(service) {
+    const table = document.getElementById("service-table")
+    const tr = document.createElement("tr")
+    tr.innerHTML = `
+        <th width="85%">
+        ${service.name}
+        <small id="personal-name-help" class="form-text text-muted">Напишите кириллицей</small>
+        </th>
+        <th width="15%"><span class="badge badge-secondary">${service.price}</span></th>
+    `
+    table.appendChild(tr)
+}
+
+
+add_check_service({
+    name: "test",
+    price: "3 500₽"
+})
