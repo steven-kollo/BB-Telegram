@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $('#phone-t').mask('+7(000) 000 0000')
-});
+})
 
 const json_g = fetch("/static/groups.json") 
     .then(response => response.json()) 
@@ -99,3 +99,19 @@ function build_HTML_service(item) {
     service.setAttribute("id", `g${item.g}s${item.s}e`)
     return service
 }
+
+function add_check_service(service) {
+    const table = document.getElementById("service-table")
+    const tr = document.createElement("tr")
+    tr.innerHTML = `
+        <th width="85%">${service.name}</th>
+        <th width="15%"><span class="badge badge-secondary">${service.price}</span></th>
+    `
+    table.appendChild(tr)
+}
+
+
+add_check_service({
+    name: "test",
+    price: "3 500"
+})
