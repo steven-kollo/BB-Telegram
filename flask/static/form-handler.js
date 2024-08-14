@@ -70,7 +70,7 @@ function add_check_service(service) {
     tr.innerHTML = `
         <th width="85%">
         ${service.name}
-        <small id="personal-name-help" class="form-text text-muted">Напишите кириллицей</small>
+        <small id="personal-name-help" class="form-text text-muted">${service.info}</small>
         </th>
         <th width="15%"><span class="badge badge-secondary">${service.price}</span></th>
     `
@@ -80,5 +80,6 @@ function add_check_service(service) {
 
 add_check_service({
     name: "test",
+    info: "hello here is my issue",
     price: "3 500₽"
 })
