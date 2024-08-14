@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('#phone-t').mask('+7(000)-000-00-00')
+    $('#phone-t').mask('+7(000) 000 0000')
 });
 
 const json_g = fetch("/static/groups.json") 
