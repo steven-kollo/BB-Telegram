@@ -1,3 +1,7 @@
+$(document).ready(function(){
+    $('#phone-t').mask('+7(000)-000-00-00')
+});
+
 const json_g = fetch("/static/groups.json") 
     .then(response => response.json()) 
     .then(json => add_services(json.groups))
@@ -13,6 +17,9 @@ function add_services(groups) {
 
         group_container.appendChild(
             build_HTML_group_checkbox(group)
+        )
+        group_container.appendChild(
+            build_HTML_group_description(group)
         )
         group_container.appendChild(
             build_HTML_group_collapse(group)
@@ -49,6 +56,14 @@ function build_HTML_group_checkbox(group) {
     return group_checkbox
 }
 
+function build_HTML_group_description(group) {
+    const group_description = document.createElement('div')
+    group_description.innerHTML = `
+        <small style="margin-top: 0em;" class="form-text text-muted">${group.description}</small>
+    `
+    return group_description
+}
+
 function build_HTML_group_collapse(group) {
     const group_collapse = document.createElement('div')
     group_collapse.innerHTML = `
@@ -64,11 +79,20 @@ function build_HTML_service(item) {
     const service = document.createElement('div')
     service.innerHTML = `
         <div class="form-check mt-3">
-            <input data-toggle="collapse" role="button" aria-expanded="false" class="form-check-input service-checkbox" type="checkbox" href="#g${item.g}s${item.s}c" aria-controls="g${item.g}s${item.s}c" id="g${item.g}s${item.s}" name="g${item.g}s${item.s}">
-            <label class="form-check-label" for="g${item.g}s${item.s}">${item.name}<span class="ml-2 badge badge-secondary">${item.price}</span></label>
+            <table width="100%">
+                <tr>
+                    <th width="85%" style="font-weight: normal;">
+                        <input data-toggle="collapse" role="button" aria-expanded="false" class="form-check-input service-checkbox" type="checkbox" href="#g${item.g}s${item.s}c" aria-controls="g${item.g}s${item.s}c" id="g${item.g}s${item.s}" name="g${item.g}s${item.s}">
+                        <label style="font-size: 15px;" class="form-check-label" for="g${item.g}s${item.s}">${item.name}</label>
+                    </th>
+                    <th width="15%" class="text-right">
+                        <span class="badge badge-secondary">${item.price}</span>
+                    </th>
+                </tr>
+            </table>
         </div>
-        <small style="margin-left: 1.7em; margin-top: 0em;" class="form-text text-muted">${item.description}</small>
-        <div style="margin-left: 1.3em;" class="was-validated collapse mt-1" id="g${item.g}s${item.s}c">
+        <small style="margin-top: 0em;" class="form-text text-muted">${item.description}</small>
+        <div class="was-validated collapse mt-1" id="g${item.g}s${item.s}c">
             <textarea placeholder="${item.tip}" class="form-control is-invalid"  id="g${item.g}s${item.s}t" rows="3" name="g${item.g}s${item.s}t"></textarea>
         </div>
     `

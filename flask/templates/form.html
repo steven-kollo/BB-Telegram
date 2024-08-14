@@ -8,6 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='form.css') }}">
 </head>
@@ -17,7 +18,7 @@
         <h1 class="mt-3">VVConsultBot</h1>
         
         <form id="form" method="post" action="/{{chat_id}}">
-            <div id="group-container">
+            <div  id="group-container">
                 <p class="p-center">Заявка на услуги</p>
                 <hr>
                 <p>
@@ -27,42 +28,57 @@
                     Ниже форма заявки для оказания услуг: выбери интересующие услуги и заполни описание. Мы проанализируем твою заявку и вернемся с обратной связью.
                 </p>
                 <p>
-                    Обрати внимание! Стоимость указана за 1 час работы по задаче (если специально не оговорено иное). Перед выполнением задачи мы проведем с тобой первичный (вводный звонок). Его стоимость фиксированная и составляет 3 500₽ / час по каждому направлению услуг.
+                    Перед выполнением задачи мы проведем с тобой первичный (вводный звонок). Его стоимость фиксированная и составляет 3 500₽ / час по каждому направлению услуг.
+                </p>
+                <p>
+                    <b>Обрати внимание! </b>Стоимость указана за 1 час работы по задаче.<br>Символ <b>"~"</b> обозначает услугу, стоимость которой обуждается индивидуально.
                 </p>
                 <hr>
             </div>
             <div hidden class="was-validated" id="personal-container">
                 <p class="p-center">Подтверждение заявки</p>
                 <hr>
-                <p >
+                <p>
                     Заполните контактные данные перед отправкой 
                 </p>
                 <div class="mb-3">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                          <div class="input-group-text">Name</div>
+                          <div class="input-group-text">Имя и фамилия</div>
                         </div>
-                        <input type="text" required class="form-control is-invalid" id="name-t" name="name-t" required aria-describedby="personal-name-help" placeholder="John Doe">
+                        <input type="text" required class="form-control is-invalid" id="name-t" name="name-t" required aria-describedby="personal-name-help" placeholder="Иван Иванов">
                     </div>
-                    <small id="personal-name-help" class="form-text text-muted">We'll never share your name with anyone else.</small>
+                    <small id="personal-name-help" class="form-text text-muted">Напишите кириллицей</small>
                 </div>
                 <div class="mb-3">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                          <div class="input-group-text">City</div>
+                          <div class="input-group-text">Ваш номер телефона</div>
                         </div>
-                        <input type="text" required class="form-control is-invalid" id="city-t" name="city-t" required aria-describedby="personal-city-help" placeholder="Santiago">
+                        <input type="text" required class="form-control is-invalid" id="phone-t" name="phone-t" required aria-describedby="personal-phone-help" placeholder="+7(XXX) XXX XXXX">
                     </div>
-                    <small id="personal-city-help" class="form-text text-muted">We'll never share your city with anyone else.</small>
+                    <small id="personal-phone-help" class="form-text text-muted">Напишите по форме.</small>
                 </div>
-                <div class="mb-3">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                          <div class="input-group-text">Email</div>
-                        </div>
-                        <input type="email" required class="form-control is-invalid" id="email-t" name="email-t" required aria-describedby="personal-email-help" placeholder="ivan_ivanov@mail.com">
+                <hr>
+                <div style="display: flex;">
+                    <img style="height: 3em; width: 3em;" src="{{url_for('static', filename='alert.png')}}">
+                    <p class="ml-3">Ниже указан перечень выбранных вами услуг и стоимость за первичную консультацию. Помните, все услуги платные. Окончательная стоимость решения вашей задачи будет сообщена по итогам первичной консультации.</p>
+                </div>
+                <div id="checkout-border">
+                    <div id="checkout-container">
+                        <p>Заявка на оказание услуг</p>
+                        <hr>
+                        <table id="service-table"></table>
+                        <hr>
+                        <table id="consult-table"></table>
+                        <hr>
+                        <table id="total-table" width="100%">
+                            <tr>
+                                <th width="85%">Итого</th>
+                                <th width="15%"><span class="badge badge-secondary">7 000₽</span></th>
+                            </tr>
+                        </table>
                     </div>
-                    <small id="personal-email-help" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
             </div>
         </form>

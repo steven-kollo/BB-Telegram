@@ -25,3 +25,14 @@ h1 {
 .badge {
     vertical-align: middle;
 }
+
+#checkout-border {
+    background-image: repeating-linear-gradient(0deg, #999999, #999999 17px, transparent 17px, transparent 27px, #999999 27px), repeating-linear-gradient(90deg, #999999, #999999 17px, transparent 17px, transparent 27px, #999999 27px), repeating-linear-gradient(180deg, #999999, #999999 17px, transparent 17px, transparent 27px, #999999 27px), repeating-linear-gradient(270deg, #999999, #999999 17px, transparent 17px, transparent 27px, #999999 27px); 
+    background-size: 1px 100%, 100% 1px, 1px 100% , 100% 1px; 
+    background-position: 0 0, 0 0, 100% 0, 0 100%; 
+    background-repeat: no-repeat;
+}
+
+#checkout-container {
+    padding: 1em;
+}
