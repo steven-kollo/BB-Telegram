@@ -68,18 +68,18 @@ function add_check_service(service) {
     const table = document.getElementById("service-table")
     const tr = document.createElement("tr")
     tr.innerHTML = `
-        <th width="85%">
+        <th width="80%">
         ${service.name}
         <small id="personal-name-help" class="form-text text-muted">${service.info}</small>
         </th>
-        <th width="15%"><span class="badge badge-secondary">${service.price}</span></th>
+        <th width="20%"><span class="badge badge-secondary">${service.price}</span></th>
     `
     table.appendChild(tr)
 }
 
 
 add_check_service({
-    name: "test",
-    info: "hello here is my issue",
-    price: "3 500₽"
+    name: "Моя задача",
+    info: "Описываю в свободной форме ситуацию, вы проведете консультацию и определите объем работы",
+    price: "3 500₽ / час"
 })
