@@ -64,22 +64,62 @@ function back_btn() {
     document.getElementById("back-btn").hidden = true
 }
 
-function add_check_service(service) {
+function add_check_services(services) {
     const table = document.getElementById("service-table")
-    const tr = document.createElement("tr")
-    tr.innerHTML = `
-        <th width="80%">
-        ${service.name}
-        <small id="personal-name-help" class="form-text text-muted">${service.info}</small>
-        </th>
-        <th width="20%"><span class="badge badge-secondary">${service.price}</span></th>
-    `
-    table.appendChild(tr)
+    add_check_consults(services)
+    for (const service of services) {
+        service.symbol = groups_json[service.group].symbol
+        const tr = document.createElement("tr")
+        tr.innerHTML = `
+            <th width="80%">
+            ${service.symbol} ${service.name}
+            <small style="width: 90%;" id="personal-name-help" class="form-text text-muted">${service.info}</small>
+            </th>
+            <th width="20%"><span class="badge badge-secondary">${service.price}</span></th>
+        `
+        table.appendChild(tr)
+    }
 }
 
+function add_check_consults(services) {
+    const table = document.getElementById("consult-table")
+    let groups = []
+    for (const service of services) {
+        if (!groups.includes(service.group)) {
+            groups.push(service.group)
+        }
+    }
 
-add_check_service({
-    name: "Моя задача",
-    info: "Описываю в свободной форме ситуацию, вы проведете консультацию и определите объем работы",
-    price: "3 500₽ / час"
-})
+    for (const group_id of groups) {
+        const tr = document.createElement("tr")
+        const group = groups_json[group_id]
+        tr.innerHTML = `
+            <th width="80%">
+            ${group.symbol} ${group.consult_item.name}
+            <small style="width: 90%;" id="personal-name-help" class="form-text text-muted">${group.consult_item.description}</small>
+            </th>
+            <th width="20%"><span class="badge badge-secondary">${group.consult_item.price}</span></th>
+        `
+        table.appendChild(tr)
+    }
+}
+
+// TESTS 
+const test_services = [
+    {
+        group: 0,
+        name: "Моя юр задача",
+        info: "Описываю в свободной форме ситуацию, вы проведете консультацию и определите объем работы",
+        price: "3 500₽ / час"
+    },
+    {
+        group: 2,
+        name: "Моя бух задача",
+        info: "Описываю в свободной форме ситуацию",
+        price: "3 000₽ / час"
+    }
+]
+setTimeout(() => { 
+    add_check_services(test_services) 
+}, 2000)
+

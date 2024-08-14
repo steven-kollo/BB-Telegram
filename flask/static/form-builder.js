@@ -1,13 +1,14 @@
 $(document).ready(function(){
     $('#phone-t').mask('+7(000) 000 0000')
 })
-
-const json_g = fetch("/static/groups.json") 
+let groups_json
+fetch("/static/groups.json") 
     .then(response => response.json()) 
     .then(json => add_services(json.groups))
 
 function add_services(groups) {
     groups = add_ids(groups)
+    groups_json = groups
     const parent = document.getElementById("group-container")
     for (const group of groups) {
         const group_container = document.createElement("div")

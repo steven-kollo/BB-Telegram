@@ -31,6 +31,7 @@ h1 {
     background-size: 1px 100%, 100% 1px, 1px 100% , 100% 1px; 
     background-position: 0 0, 0 0, 100% 0, 0 100%; 
     background-repeat: no-repeat;
+    background-color: white;
 }
 
 #checkout-container {
