@@ -5,6 +5,7 @@ let groups_json
 fetch("/static/groups.json") 
     .then(response => response.json()) 
     .then(json => add_services(json.groups))
+    .then(build_thank_you_page(order_obj))
 
 function add_services(groups) {
     groups = add_ids(groups)
@@ -33,6 +34,18 @@ function add_services(groups) {
     }
     $('.service-checkbox').click(function(e) {
         handle_service_checkbox(e)
+    })
+    $("textarea").change(function(e) {
+        handle_required_fields(e)
+    })
+    $("#name-t").change(function(e) {
+        handle_required_fields(e)
+    })
+    $("#phone-t").change(function(e) {
+        handle_required_fields(e)
+    })
+    $("#privacy-popup").change(function(e) {
+        handle_required_fields(e)
     })
 }
 
@@ -99,4 +112,10 @@ function build_HTML_service(item) {
     `
     service.setAttribute("id", `g${item.g}s${item.s}e`)
     return service
+}
+
+
+function build_thank_you_page(order_obj) {
+    if (order_obj.main) { return }
+    console.log(order_obj)
 }

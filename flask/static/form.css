@@ -2,6 +2,10 @@ body {
     background-color: #FAFAFA;
 }
 
+textarea {
+    font-size: 14px!important;
+}
+
 p {
     margin-bottom: 0.7em;
     color: #333333;
@@ -26,7 +30,7 @@ h1 {
     vertical-align: middle;
 }
 
-#checkout-border {
+#checkout-border, #checkout-border-th {
     background-image: repeating-linear-gradient(0deg, #999999, #999999 17px, transparent 17px, transparent 27px, #999999 27px), repeating-linear-gradient(90deg, #999999, #999999 17px, transparent 17px, transparent 27px, #999999 27px), repeating-linear-gradient(180deg, #999999, #999999 17px, transparent 17px, transparent 27px, #999999 27px), repeating-linear-gradient(270deg, #999999, #999999 17px, transparent 17px, transparent 27px, #999999 27px); 
     background-size: 1px 100%, 100% 1px, 1px 100% , 100% 1px; 
     background-position: 0 0, 0 0, 100% 0, 0 100%; 
@@ -34,6 +38,6 @@ h1 {
     background-color: white;
 }
 
-#checkout-container {
+#checkout-container,#checkout-container-th {
     padding: 1em;
 }

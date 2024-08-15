@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-import os, json
+import os, json, re
 from flask import Flask, render_template, request, url_for
 import threading, requests
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
+from parser import parse_user_fields
 # from pymongo import MongoClient
 
 json_url = os.path.join(
@@ -39,7 +40,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=reply_markup
     )
 
-
 class FlaskThread(threading.Thread):
     def run(self) -> None:
         app = Flask(__name__, static_url_path='/static')
@@ -51,44 +51,17 @@ class FlaskThread(threading.Thread):
         @app.route('/<chat_id>', methods=['GET', 'POST'])
         def form(chat_id):
             if request.method == 'POST':
-                print(request.form)
-                text = self.parse_user_fields(form=request.form)
-                if text != "":
-                    message = f"hello from your telegram bot, here is your text:\n{text}"
-                    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
+                user_fields = parse_user_fields(request.form, GROUPS)
+                if user_fields["text"] != "":
+                    message = user_fields['text']
+                    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&parse_mode=markdown&text={message}"
                     print(requests.get(url).json()) # this sends the message
-                return render_template('form.html', chat_id=chat_id)
+                return render_template('form.html', chat_id=chat_id, thank_you_page=True, order_json=user_fields["order_json"], ensure_ascii=False)
             else:
-                return render_template('form.html', chat_id=chat_id, groups_json=url_for('static', filename='groups.json'))
+                return render_template('form.html', chat_id=chat_id, groups_json=url_for('static', filename='groups.json'), order_json={"main":True})
 
         app.run(host="0.0.0.0", port=9091, threaded=True)
 
-    def parse_user_fields(self, form):
-        text = ""
-        personal = {
-            "name": "",
-            "city": "",
-            "email": ""
-        }
-        for key, val in form.items():
-            if "t" in key and val != "":
-                if "-t" in key: 
-                    personal[key.split("-")[0]] = val
-                else:
-                    text = text + self.build_service_line(key, val)
-        text = f"{personal['name']},city {personal['city']}, {personal['email']}\n\n" + text
-        return text
-    
-    def build_service_line(self, key, val):
-        g, s = self.parse_service_id(key)
-        service_name = GROUPS[g]["items"][s]["name"]
-        group_name = GROUPS[g]["name"]
-        line = f"{group_name} | {service_name}: {val}\n"
-        return line
-    
-    def parse_service_id(self, id):
-        return int(id[1]), int(id[3])
-    
 class TelegramThread(threading.Thread):
     def run(self) -> None:
         main()

@@ -13,12 +13,40 @@
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='form.css') }}">
 </head>
 <body>
-    <div class="container">
+    <div id="thank-you-container" class="container">
+        <h1 class="mt-3">VVConsultBot</h1>
+        <p class="p-center">Заявка №10001 оформлена</p>
+        <hr>
+        <p>
+            Ваша заявка оформлена!<br>
+            Мы свяжемся с вами в телеграм<br>
+            Если вы хотите отправить нам дополнительные материалы -- пишите их нам на почту <a class="text-primary">vvcounsult@mailbox.org</a>
+        </p>
+        <div id="checkout-border-th">
+            <div id="checkout-container-th">
+                <p>Заявка на оказание услуг</p>
+                <hr>
+                <table id="service-table-th" width="100%"></table>
+                <hr>
+                <table id="consult-table-th" width="100%"></table>
+                <hr>
+                <table id="total-table-th" width="100%">
+                    <tr>
+                        <th width="80%">Итого</th>
+                        <th width="20%"><span id="total-price-th" class="badge badge-success"></span></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col text-center mt-3 mb-5">
+            <button onclick="back_btn()" style="width: 300px;" class="btn btn-success">Создать новую заявку</button>
+        </div>
+    </div>
+    <div hidden id="form-container" class="container">
         <button hidden onclick="back_btn()" id="back-btn" class="btn btn-outline-success btn-sm"><i class="fas fa-angle-left"></i> back</button>
         <h1 class="mt-3">VVConsultBot</h1>
-        
         <form id="form" method="post" action="/{{chat_id}}">
-            <div hidden id="group-container">
+            <div id="group-container">
                 <p class="p-center">Заявка на услуги</p>
                 <hr>
                 <p>
@@ -35,7 +63,7 @@
                 </p>
                 <hr>
             </div>
-            <div class="was-validated" id="personal-container">
+            <div hidden class="was-validated" id="personal-container">
                 <p class="p-center">Подтверждение заявки</p>
                 <hr>
                 <p>
@@ -48,21 +76,19 @@
                         </div>
                         <input type="text" required class="form-control is-invalid" id="name-t" name="name-t" required aria-describedby="personal-name-help" placeholder="Иван Иванов">
                     </div>
-                    <small id="personal-name-help" class="form-text text-muted">Напишите кириллицей</small>
                 </div>
                 <div class="mb-3">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                          <div class="input-group-text">Номер телефона</div>
+                            <div class="input-group-text">Номер телефона</div>
                         </div>
                         <input type="text" required class="form-control is-invalid" id="phone-t" name="phone-t" required aria-describedby="personal-phone-help" placeholder="+7(XXX) XXX XXXX">
                     </div>
-                    <small id="personal-phone-help" class="form-text text-muted">Напишите по форме.</small>
                 </div>
                 <hr>
-                <div style="display: flex;">
+                <div style="display: flex; align-items: center; margin-bottom: 0.7em;">
                     <img style="height: 3em; width: 3em;" src="{{url_for('static', filename='alert.png')}}">
-                    <p class="ml-3">Ниже указан перечень выбранных вами услуг и стоимость за первичную консультацию. Помните, все услуги платные. Окончательная стоимость решения вашей задачи будет сообщена по итогам первичной консультации.</p>
+                    <p style="margin-bottom: 0em;" class="ml-3">Ниже указан перечень выбранных вами услуг и стоимость за первичную консультацию. Помните, все услуги платные. Окончательная стоимость решения вашей задачи будет сообщена по итогам первичной консультации.</p>
                 </div>
                 <div id="checkout-border">
                     <div id="checkout-container" >
@@ -75,7 +101,7 @@
                         <table id="total-table" width="100%">
                             <tr>
                                 <th width="80%">Итого</th>
-                                <th width="20%"><span class="badge badge-secondary">7 000₽</span></th>
+                                <th width="20%"><span id="total-price" class="badge badge-success"></span></th>
                             </tr>
                         </table>
                     </div>
@@ -83,9 +109,117 @@
             </div>
         </form>
         <hr>
-        <button onclick="handle_submit()" id="submit-btn" class="mb-5 btn btn-success">Submit</button>
+        <div class="col text-center mb-5">
+            <button onclick="handle_submit()" style="width: 300px;" id="submit-btn" class="btn btn-success mb-1">Оставить заявку</button>
+            <div class="d-flex justify-content-center">
+                <a id="btn-alert" style="font-size: 14px;" class="text-danger"></a>
+            </div>
+            <div>
+                <div class="col text-center">
+                    <div class="">
+                        <div class="checkbox-inline">
+                          <label style="margin-bottom: 0; font-size: 14px;" class="checkbox-inline">
+                            <input type="checkbox" value="" id="privacy-popup"> Даю <a class="text-primary" data-toggle="modal" data-target="#privacy-modal">согласие на обработку персональных данных</a></label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="checkbox-inline">
+                          <label style="margin-bottom: 0; font-size: 14px;" class="checkbox-inline">
+                            <input type="checkbox" value="" id="ads-popup"> Даю <a class="text-primary" data-toggle="modal" data-target="#ads-modal">согласие на получение информационной и рекламной рассылки</a></label>
+                        </div>
+                      </div>
+                </div>
+                <div class="modal fade" id="privacy-modal" tabindex="-1" role="dialog" aria-labelledby="privacy-modal-title" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="privacy-modal-title">Согласие на обработку персональных данных</h5><br>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="font-size: 14px;">
+                            <div class="text-left">
+                                <p>
+                                    Физическое лицо (далее – <b>«Пользователь»</b>), оставляя заявку в телеграм-боте «VVConcultBot», нажимая на кнопку «Оставить заявку» через форму «Заявка на юридическую помощь», действуя свободно, своей волей и в своем интересе, а также подтверждая свою дееспособность, предоставляет свое согласие на обработку персональных данных (далее – <b>«Согласие»</b>) Обществу с ограниченной ответственностью «Проектный офис» (ИНН 7720484654, ОГРН 1197746620686) и зарегистрированному по адресу: 123592, г. Москва, вн.тер.г. муниципальный округ Строгино, ул Кулакова, д. 20, к. 1, помещ. III, ком. 11 (далее – <b>«Оператор»</b>), на обработку своих персональных данных со следующими условиями:
+                                </p>
+                                <ol style="padding-left: 15px;">
+                                    <li>Принятием (акцептом) настоящего Согласия является активация чек-бокса рядом с текстом «Даю согласие на обработку персональных данных» и нажатие кнопки «Оставить заявку».</li>
+                                    <li>Согласие дается на обработку следующих персональных данных:
+                                        <ul style="padding-left: 15px;">
+                                            <li>фамилия, имя, отчество;</li>
+                                            <li>номера телефонов (домашний, мобильный, рабочий);</li>
+                                        </ul>
+                                    </li>
+                                    <li>Цель обработки персональных данных: осуществление связи с Пользователями, в том числе направление уведомлении, информации и запросов, связанных с оказанием услуг, а также обработка запросов и заявок Пользователеи ; .</li>
+                                    <li>Перечень действий с персональными данными, на осуществление которых дается Согласие:
+                                        <ul style="padding-left: 15px;">
+                                            <li>сбор;</li>
+                                            <li>запись;</li>
+                                            <li>систематизация;</li>
+                                            <li>накопление;</li>
+                                            <li>хранение;</li>
+                                            <li>уточнение (обновление, изменение);</li>
+                                            <li>извлечение;</li>
+                                            <li>использование;</li>
+                                            <li>передача (распространение, предоставление, доступ), в том числе трансграничная передача;</li>
+                                            <li>обезличивание;</li>
+                                            <li>блокирование;</li>
+                                            <li>удаление;</li>
+                                            <li>уничтожение;</li>
+                                            <li>передача третьим лицам для цели, указанной в п. 2 Согласия.</li>
+                                        </ul>
+                                    </li>
+                                    <li>Согласие считается действующим до момента его отзыва.</li>
+                                    <li>Обработка персональных данных осуществляется как без использования средств автоматизации, так и с их использованием.</li>
+                                    <li>Условием для прекращения обработки является достижение цели обработки персональных данных или отзыв согласия на обработку персональных данных.</li>
+                                    <li>Физическое лицо имеет право отозвать свое согласие посредством составления соответствующего письменного документа («Отзыв Согласия»), который может быть направлен в простой письменной форме по адресу юридического лица ООО «Проектный офис» или на адрес электронной почты ООО «Проектный офис»: <a class="text-primary">projectoffice@vkusvill.ru.</a></li>
+                                    <li>Физическое лицо согласно с тем, что на основании его письменного Отзыва Согласия ООО «Проектный офис» прекратит обработку таких сведений в течение 30 (тридцати) дней.</li>
+                                    <li>В случае Отзыва Согласия ООО «Проектный офис» вправе продолжить обработку персональных данных без Согласия при наличии оснований, указанных в п. 2-11 ч. 1 ст. 6, ч. 2 ст. 10 и ч. 2 ст. 11 № 152-ФЗ «О персональных данных».</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal fade" id="ads-modal" tabindex="-1" role="dialog" aria-labelledby="ads-modal-title" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ads-modal-title">Согласие на получение информационной и рекламной рассылки</h5><br>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="font-size: 14px;">
+                                <div class="text-left">
+                                    <p>
+                                        Физическое лицо, оставляя заявку в телеграм-боте «VVConcultBot», нажимая на кнопку «Оставить заявку» через форму «Заявка на юридическую помощь», действуя свободно, своей волей и в своем интересе, а также подтверждая свою дееспособность, предоставляет свое согласие на получение информационной и рекламной рассылки согласно ст. 18. № 38-ФЗ «О рекламе» (далее – <b>«Согласие»</b>) Обществу с ограниченной ответственностью «Проектный офис» (ИНН 7720484654, ОГРН 1197746620686) зарегистрированному по адресу: 123592, г. Москва, вн.тер.г. муниципальный округ Строгино, ул Кулакова, д. 20, к. 1, помещ. III, ком. 11 (далее – <b>«Оператор»</b>), со следующими условиями:
+                                    </p>
+                                    <ol style="padding-left: 15px;">
+                                        <li>Принятием (акцептом) настоящего Согласия является активация чек-бокса рядом с текстом «Даю согласие на получение информационной и рекламной рассылки» и нажатие кнопки «Оставить заявку».</li>
+                                        <li>Согласие дается на осуществление Оператором следующих действий: передачу посредством телефонной связи (в том числе посредством СМС и мессенджеров) на абонентский номер, предоставленные Оператору, информационных и рекламных сообщений Оператора.</li>
+                                        <li>Согласие считается действующим со дня его подписания и действует в течение неопределенного срока. Может быть отозвано на основании письменного заявления, путем направления его по адресу юридического лица ООО «Проектный офис» или на адрес электронной почты ООО «Проектный офис»: <a class="text-primary">projectoffice@vkusvill.ru.</a></li>
+                                        <li>Исключение Пользователя из списка рассылки будет осуществлено со дня получения Оператором письменного отзыва Согласия.</li>
+                                    </ol>
+                                </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <script src="{{url_for('static', filename='form-builder.js')}}"></script>
     <script src="{{url_for('static', filename='form-handler.js')}}"></script>
+    <script>
+        const thank_you_page = "{{thank_you_page}}"
+        const order_obj = JSON.parse('{{order_json|tojson|safe}}')
+        if (thank_you_page) {
+            
+            document.getElementById("form-container").hidden = true
+            document.getElementById("thank-you-container").hidden = false
+        }
+    </script>
+    <script src="{{url_for('static', filename='form-builder.js')}}"></script>
 </body>
 </html> 
