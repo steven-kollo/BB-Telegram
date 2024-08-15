@@ -5,7 +5,6 @@ let groups_json
 fetch("/static/groups.json") 
     .then(response => response.json()) 
     .then(json => add_services(json.groups))
-    .then(build_thank_you_page(order_obj))
 
 function add_services(groups) {
     groups = add_ids(groups)
@@ -47,6 +46,7 @@ function add_services(groups) {
     $("#privacy-popup").change(function(e) {
         handle_required_fields(e)
     })
+    build_thank_you_page(order_obj, groups_json)
 }
 
 function add_ids(groups) {
@@ -115,7 +115,40 @@ function build_HTML_service(item) {
 }
 
 
-function build_thank_you_page(order_obj) {
+function build_thank_you_page(order_obj, groups_json) {
     if (order_obj.main) { return }
-    console.log(order_obj)
+    document.getElementById("order-id").innerText = order_obj.order_id
+
+    const order_table = document.getElementById("service-table-th")
+    for(let order of order_obj.order) {
+        console.log(order[1][1])
+        const tr = document.createElement("tr")
+        const group = groups_json[Number(order[1][1])]
+        tr.innerHTML = `
+            <th width="80%">
+            ${group.items[order[1][3]].name}
+            <small style="width: 90%;" class="form-text text-muted">${group.name}</small>
+            </th>
+            <th width="20%"><span class="badge badge-secondary">${group.items[order[1][3]].price}</span></th>
+        `
+        order_table.appendChild(tr)
+    }
+
+    const consult_table = document.getElementById("consult-table-th")
+    for(let consult of order_obj.consults) {
+        console.log(consult)
+        const tr = document.createElement("tr")
+        const group = groups_json[Number(consult)]
+        tr.innerHTML = `
+        <th width="80%">
+        ${group.consult_item.name}
+        </th>
+        <th width="20%"><span class="badge badge-success">${group.consult_item.price}</span></th>
+        `
+        consult_table.appendChild(tr)
+    }
+    const total = order_obj.total_price.toString()
+    console.log(total)
+    document.getElementById("total-price-th").innerText = 
+        `${total.substr(0, total.length - 3)} ${total.substr(total.length - 3)}₽`
 }

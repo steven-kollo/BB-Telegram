@@ -1,4 +1,4 @@
-import re
+import re, random
 
 def parse_user_fields(form, groups):
     global GROUPS
@@ -17,7 +17,7 @@ def parse_user_fields(form, groups):
 
     consults = list(map(build_consult_info, consults))
     user_data = {
-        "order_id": 10001,
+        "order_id": random.randint(10000, 99999),
         "personal": personal,
         "order": order,
         "consults": consults,
