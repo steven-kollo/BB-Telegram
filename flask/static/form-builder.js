@@ -64,9 +64,11 @@ function build_HTML_group_checkbox(group) {
     const group_checkbox = document.createElement('div')
     group_checkbox.innerHTML = `
         <input data-toggle="collapse" href="#g${group.id}c" role="button" aria-expanded="false" aria-controls="g${group.id}c" class="form-check-input group-checkbox" type="checkbox" id="g${group.id}ch" name="g${group.id}">
-        <label class="form-check-label" id="g${group.id}l" for="g${group.id}ch">${group.name}</label>   
+        <label class="form-check-label plus-minus" id="g${group.id}l" for="g${group.id}ch"></label>   
+        <label style="font-size: 18px; margin-left: 4px; margin-bottom: 0px;" for="g${group.id}ch">${group.name}</label>
     `
-    group_checkbox.setAttribute("class", "form-check")
+    group_checkbox.setAttribute("class", "form-check plus-minus-group")
+    group_checkbox.setAttribute("style", "")
     return group_checkbox
 }
 
@@ -96,7 +98,7 @@ function build_HTML_service(item) {
             <table width="100%">
                 <tr>
                     <th width="85%" style="font-weight: normal;">
-                        <input data-toggle="collapse" role="button" aria-expanded="false" class="form-check-input service-checkbox" type="checkbox" href="#g${item.g}s${item.s}c" aria-controls="g${item.g}s${item.s}c" id="g${item.g}s${item.s}" name="g${item.g}s${item.s}">
+                        <input data-toggle="collapse" role="button" aria-expanded="false" class="form-check-input service-checkbox substituted" type="checkbox" href="#g${item.g}s${item.s}c" aria-controls="g${item.g}s${item.s}c" id="g${item.g}s${item.s}" name="g${item.g}s${item.s}">
                         <label style="font-size: 15px;" class="form-check-label" for="g${item.g}s${item.s}">${item.name}</label>
                     </th>
                     <th width="15%" class="text-right">
