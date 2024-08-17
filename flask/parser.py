@@ -43,7 +43,7 @@ def build_consult_info(group_id):
     return consult_item
 
 def build_tg_text(user_data):
-    text = f'Супер!\nВаша заявка №{user_data["order_id"]} взята в работу:\n\n*--- Выбранные услуги ---*\n'
+    text = f'Спасибо за выбор VVConsultBot!\nТвоя заявка *№{user_data["order_id"]}* принята в работу.\nСовсем скоро с тобой свяжется специалист и уточнит детали\n\n*--- Выбранные услуги ---*\n'
 
     for service in user_data["order"]:
         text += f'{service["group"]}\n{service["name"]} | {handle_price_line(service["price"])}\n'
@@ -51,9 +51,15 @@ def build_tg_text(user_data):
     
     text += "*--- Первичные консультации ---*\n"
     for consult in user_data["consults"]:
-        text += f'{consult["group_name"]}\n{consult["name"]} | {handle_price_line(consult["price"])}\n\n'
+        if "Я не уверен" in consult["group_name"]:
+            text += f'{consult["symbol"]} {consult["name"]} | {handle_price_line(consult["price"])}\n\n'
+        else:
+            text += f'{consult["group_name"]}\n{consult["name"]} | {handle_price_line(consult["price"])}\n\n'
+        
+        
 
-    text += f'================\n*Итого к оплате: {price_to_string(sum_price(user_data["consults"]))}*'
+    text += f'================\n*Стоимость выбранных услуг: {price_to_string(sum_price(user_data["consults"]))}*'
+    text += f'\n\nЕсли ты хочешь отправить нам дополнительные материалы -- пришли их нам на почту vvcounsult@mailbox.org. Не забудь указать номер своей заявки: {user_data["order_id"]}.'
     return text
 
 def handle_price_line(price):

@@ -127,11 +127,10 @@ function build_thank_you_page(order_obj, groups_json) {
         const tr = document.createElement("tr")
         const group = groups_json[Number(order[1][1])]
         tr.innerHTML = `
-            <th width="80%">
+            <th>
             ${group.items[order[1][3]].name}
-            <small style="width: 90%;" class="form-text text-muted">${group.name}</small>
+            <small class="form-text text-muted">${group.name}</small>
             </th>
-            <th width="20%"><span class="badge badge-secondary">${group.items[order[1][3]].price}</span></th>
         `
         order_table.appendChild(tr)
     }
@@ -145,7 +144,7 @@ function build_thank_you_page(order_obj, groups_json) {
         <th width="80%">
         ${group.consult_item.name}
         </th>
-        <th width="20%"><span class="badge badge-success">${group.consult_item.price}</span></th>
+        <th width="20%"><span class="badge badge-secondary">${group.consult_item.price}</span></th>
         `
         consult_table.appendChild(tr)
     }

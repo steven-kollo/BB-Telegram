@@ -57,6 +57,7 @@ function handle_required_fields(e) {
 
 
 function handle_submit() {
+    window.scrollTo(0,0)
     const selected_services = parse_selected_services()
     button_alert("")
     clear_check_table()
@@ -116,6 +117,7 @@ function check_filled_personal_fields() {
 }
 
 function back_btn() {
+    window.scrollTo(0,0)
     document.getElementById("form-container").hidden = false
     document.getElementById("personal-container").hidden = true
     document.getElementById("group-container").hidden = false
@@ -129,11 +131,10 @@ function add_check_services(services) {
         service.symbol = groups_json[service.group].symbol
         const tr = document.createElement("tr")
         tr.innerHTML = `
-            <th width="80%">
-            ${service.symbol} ${service.name}
-            <small style="width: 90%;" id="personal-name-help" class="form-text text-muted">${service.info}</small>
+            <th>
+                ${service.symbol} ${service.name}
+                <small id="personal-name-help" class="form-text text-muted">${service.info}</small>
             </th>
-            <th width="20%"><span class="badge badge-secondary">${service.price}</span></th>
         `
         table.appendChild(tr)
     }
@@ -155,9 +156,8 @@ function add_check_consults(services) {
         tr.innerHTML = `
             <th width="80%">
             ${group.symbol} ${group.consult_item.name}
-            <small style="width: 90%;" class="form-text text-muted">${group.consult_item.description}</small>
             </th>
-            <th width="20%"><span class="badge badge-success">${group.consult_item.price}</span></th>
+            <th width="20%"><span class="badge badge-secondary">${group.consult_item.price}</span></th>
         `
         table.appendChild(tr)
         total = total + Number(group.consult_item.price.replace(/\D/g,''))
