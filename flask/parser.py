@@ -59,7 +59,7 @@ def build_tg_text(user_data):
         
 
     text += f'================\n*Стоимость выбранных услуг: {price_to_string(sum_price(user_data["consults"]))}*'
-    text += f'\n\nЕсли ты хочешь отправить нам дополнительные материалы -- пришли их нам на почту vvcounsult@mailbox.org. Не забудь указать номер своей заявки: {user_data["order_id"]}.'
+    text += f'\n\nЕсли ты хочешь отправить нам дополнительные материалы -- пришли их нам на почту projectoffice@vkusvill.ru. Не забудь указать номер своей заявки: {user_data["order_id"]}.'
     return text
 
 def handle_price_line(price):

@@ -133,7 +133,7 @@ function add_check_services(services) {
         tr.innerHTML = `
             <th>
                 ${service.symbol} ${service.name}
-                <small id="personal-name-help" class="form-text text-muted">${service.info}</small>
+                <small id="personal-name-help" class="form-text text-muted mb-2">${service.info}</small>
             </th>
         `
         table.appendChild(tr)
