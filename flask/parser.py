@@ -92,6 +92,11 @@ def parse_order_to_json(user_data):
         "consults": parse_consults_to_json(user_data["consults"]),
     }
 
+def build_team_tg_text(user_data, tg_id):
+    print(user_data["personal"])
+    info = user_data["text"].split("и уточнит детали")[1].split("Если ты хочешь")[0]
+    return f'Новая заявка №{user_data["order_id"]}\n{user_data["personal"]["name"]} | {user_data["personal"]["phone"]} | @{tg_id}{info}'.replace("*","")
+
 def parse_orders_to_json(n):
     return [[n["info"], n["key"]] for n in n]
 
