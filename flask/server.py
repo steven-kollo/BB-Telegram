@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import os, json, re
+import os, json
 from flask import Flask, render_template, request, url_for
 import threading, requests
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
@@ -17,11 +17,11 @@ data = json.load(open(json_url))
 global GROUPS
 GROUPS = data["groups"]
 global TOKEN
-TOKEN = "7027330124:AAGX1qYHaOvcW929LB9GNpfGil1qtrR_MVA"
+TOKEN = os.environ.get("TOKEN")
 global GROUP_ID
-GROUP_ID = -4578478212
+GROUP_ID = os.environ.get("GROUP_ID")
 global URL
-URL = "0.0.0.0"
+URL = os.environ.get("URL")
 
 def main():
     application = ApplicationBuilder().token(TOKEN).build()
@@ -47,9 +47,6 @@ class FlaskThread(threading.Thread):
     def run(self) -> None:
         app = Flask(__name__, static_url_path='/static')
         #mongo_client = MongoClient("mongo:27017")
-
-        # TODO add real server address
-        # URL = "0.0.0.0"
         
         @app.route('/<chat_id>', methods=['GET', 'POST'])
         def form(chat_id):
@@ -60,7 +57,6 @@ class FlaskThread(threading.Thread):
                     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&parse_mode=markdown&text={message}"
                     res = requests.get(url).json() # this sends the message
                     group_message = build_team_tg_text(user_fields, res["result"]["chat"]["username"])
-                    print(group_message)
                     url_group = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={GROUP_ID}&text={group_message}"
                     print(requests.get(url_group).json())
 
