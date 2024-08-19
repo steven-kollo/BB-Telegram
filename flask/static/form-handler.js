@@ -111,7 +111,7 @@ function check_personal_fields() {
 function check_filled_personal_fields() {
     if (
         document.getElementById("name-t").value != "" &&
-        document.getElementById("phone-t").value != ""
+        document.getElementById("phone-t").value.length == 16
     ) { return true }
     button_alert(personal_alert_text)
     return false
