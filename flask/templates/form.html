@@ -86,7 +86,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">Номер телефона</div>
                         </div>
-                        <input type="text" required class="form-control is-invalid" id="phone-t" name="phone-t" required aria-describedby="personal-phone-help" placeholder="+7(XXX) XXX XXXX">
+                        <input type="tel" pattern=".{16}" oninput="check(this)" required class="form-control is-invalid" id="phone-t" name="phone-t" required aria-describedby="personal-phone-help" placeholder="+7(XXX) XXX XXXX">
                     </div>
                 </div>
                 <hr>
