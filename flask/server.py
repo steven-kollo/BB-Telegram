@@ -21,9 +21,7 @@ global GROUP_ID
 GROUP_ID = os.environ.get("GROUP_ID")
 global URL
 URL = os.environ.get("URL")
-GROUP_ID="-4578478212"
-TOKEN="7027330124:AAGX1qYHaOvcW929LB9GNpfGil1qtrR_MVA"
-URL="127.0.0.1:9091"
+
 def main():
     application = ApplicationBuilder().token(TOKEN).build()
         
