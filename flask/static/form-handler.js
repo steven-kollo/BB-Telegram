@@ -63,13 +63,20 @@ function handle_submit() {
     add_check_consults(selected_services)
     add_check_services(selected_services) 
 
-    if (check_filled_fields() && check_personal_fields() && check_privacy_checkbox()) {
+    if (check_filled_fields() && check_personal_fields() && check_privacy_checkbox() && check_ads()) {
         $("#form").submit()
     } else if (document.getElementById("btn-alert").innerText == "") {
         window.scrollTo(0,0)
     }
 }
-
+function check_ads() {
+    if (document.getElementById("ads-popup").checked) {
+        document.getElementById("accept-ads").value = true
+    } else {
+        document.getElementById("accept-ads").value = false
+    }
+    return true
+}
 function check_privacy_checkbox() {
     if (document.getElementById("privacy-popup").checked) {
         return true

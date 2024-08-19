@@ -123,7 +123,6 @@ function build_thank_you_page(order_obj, groups_json) {
 
     const order_table = document.getElementById("service-table-th")
     for(let order of order_obj.order) {
-        console.log(order[1][1])
         const tr = document.createElement("tr")
         const group = groups_json[Number(order[1][1])]
         tr.innerHTML = `
@@ -137,7 +136,6 @@ function build_thank_you_page(order_obj, groups_json) {
 
     const consult_table = document.getElementById("consult-table-th")
     for(let consult of order_obj.consults) {
-        console.log(consult)
         const tr = document.createElement("tr")
         const group = groups_json[Number(consult)]
         tr.innerHTML = `
@@ -149,7 +147,6 @@ function build_thank_you_page(order_obj, groups_json) {
         consult_table.appendChild(tr)
     }
     const total = order_obj.total_price.toString()
-    console.log(total)
     document.getElementById("total-price-th").innerText = 
         `${total.substr(0, total.length - 3)} ${total.substr(total.length - 3)}₽`
 }

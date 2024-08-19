@@ -7,7 +7,9 @@ def parse_user_fields(form, groups):
     order = []
     consults = []
     for key, val in form.items():
-        if "t" in key and val != "":
+        if "accept-ads" == key:
+            personal["accept-ads"] = True if val == "true" else False 
+        elif "t" in key and val != "":
             if "-t" in key: 
                 personal[key.split("-")[0]] = val
             else:
@@ -43,7 +45,7 @@ def build_consult_info(group_id):
     return consult_item
 
 def build_tg_text(user_data):
-    text = f'Спасибо за выбор VVConsultBot!\nТвоя заявка *№{user_data["order_id"]}* принята в работу.\nСовсем скоро с тобой свяжется специалист и уточнит детали\n\n*--- Выбранные услуги ---*\n'
+    text = f'Спасибо за выбор VVLegalBot!\nТвоя заявка *№{user_data["order_id"]}* принята в работу.\nСовсем скоро с тобой свяжется специалист и уточнит детали\n\n*--- Выбранные услуги ---*\n'
 
     for service in user_data["order"]:
         text += f'{service["group"]}\n{service["name"]} | {handle_price_line(service["price"])}\n'
@@ -93,9 +95,9 @@ def parse_order_to_json(user_data):
     }
 
 def build_team_tg_text(user_data, tg_id):
-    print(user_data["personal"])
+    accept_ads = "Клиент принял рекламную рассылку" if user_data["personal"]["accept-ads"] else "Клиент не принял рекламную рассылку"
     info = user_data["text"].split("и уточнит детали")[1].split("Если ты хочешь")[0]
-    return f'Новая заявка №{user_data["order_id"]}\n{user_data["personal"]["name"]} | {user_data["personal"]["phone"]} | @{tg_id}{info}'.replace("*","")
+    return f'Новая заявка №{user_data["order_id"]}\n{user_data["personal"]["name"]} | {user_data["personal"]["phone"]} | @{tg_id}{info} {accept_ads}'.replace("*","")
 
 def parse_orders_to_json(n):
     return [[n["info"], n["key"]] for n in n]

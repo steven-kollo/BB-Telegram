@@ -21,7 +21,9 @@ global GROUP_ID
 GROUP_ID = os.environ.get("GROUP_ID")
 global URL
 URL = os.environ.get("URL")
-
+GROUP_ID="-4578478212"
+TOKEN="7027330124:AAGX1qYHaOvcW929LB9GNpfGil1qtrR_MVA"
+URL="0.0.0.0"
 def main():
     application = ApplicationBuilder().token(TOKEN).build()
         
@@ -37,7 +39,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text(
-        "Привет👋\n\nДавай знакомиться - я VVConsultBot, вместе с коллегами буду помогать автоматизировать процессы выполнения задач во ВкусВилл.\n\nЯ помогу тебе выбрать к кому обратиться за помощью😉\n\nЧтобы продолжить общение, открой форму заявки по кнопке «Создать заявку» под сообщением",
+        "Привет👋\n\nДавай знакомиться - я VVLegalBot, вместе с коллегами буду помогать автоматизировать процессы выполнения задач во ВкусВилл.\n\nЯ помогу тебе выбрать к кому обратиться за помощью😉\n\nЧтобы продолжить общение, открой форму заявки по кнопке «Создать заявку» под сообщением",
         reply_markup=reply_markup
     )
 
@@ -48,11 +50,19 @@ class FlaskThread(threading.Thread):
         @app.route('/<chat_id>', methods=['GET', 'POST'])
         def form(chat_id):
             if request.method == 'POST':
+                print(request.form)
                 user_fields = parse_user_fields(request.form, GROUPS)
                 if user_fields["text"] != "":
-                    message = user_fields['text']
-                    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&parse_mode=markdown&text={message}"
-                    res = requests.get(url).json() # this sends the message
+                    message_json = {
+                        "chat_id": chat_id,
+                        "parse_mode": "markdown",
+                        "text": user_fields['text'],
+                        "reply_markup": {
+                            "inline_keyboard": [[{ "text": 'Создать новую заявку', "url": f"{URL}/{chat_id}" }]],
+                        },
+                    }
+                    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
+                    res = requests.post(url, json=message_json).json() # this sends the message
                     group_message = build_team_tg_text(user_fields, res["result"]["chat"]["username"])
                     url_group = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={GROUP_ID}&text={group_message}"
                     print(requests.get(url_group).json())

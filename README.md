@@ -1,8 +1,8 @@
 # BB-Telegram
-Hello 
+Hello VVLegalBot
 
 ## Docker
-sudo docker compose --env-file .env up -d
+sudo docker compose up -d
 
 ## Test Flask
 sudo kill -9 $(sudo lsof -t -i:9091) && python3 server.py

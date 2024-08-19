@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bootstrap Example</title>
+    <title>VVLegalBot</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -13,16 +13,12 @@
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='form.css') }}">
 </head>
 <body>
-
-
-
-
     <div hidden id="thank-you-container" class="container">
-        <h1 class="mt-3">VVConsultBot</h1>
+        <h1 class="mt-3">VVLegalBot</h1>
         <p class="p-center">Заявка №<a id="order-id"></a> оформлена</p>
         <hr>
         <p>
-            Спасибо за выбор VVConsultBot! Твоя заявка принята в работу.<br>
+            Спасибо за выбор VVLegalBot! Твоя заявка принята в работу.<br>
             Совсем скоро с тобой свяжется специалист и уточнит детали.<br><br>
             Если ты хочешь отправить нам дополнительные материалы -- пришли их нам на почту <a class="text-primary">projectoffice@vkusvill.ru</a>. Не забудь указать номер своей заявки.
         </p>
@@ -48,7 +44,7 @@
     </div>
     <div id="form-container" class="container">
         <button hidden onclick="back_btn()" id="back-btn" class="btn btn-outline-success btn-sm"><i class="fas fa-angle-left"></i> back</button>
-        <h1 class="mt-3">VVConsultBot</h1>
+        <h1 class="mt-3">VVLegalBot</h1>
         <form id="form" method="post" action="/{{chat_id}}">
             <div id="group-container">
                 <p class="p-center">Заявка на услуги</p>
@@ -73,6 +69,7 @@
                 <p>
                     Заполните контактные данные перед отправкой 
                 </p>
+                <input hidden type="text" class="form-control" id="accept-ads" name="accept-ads">
                 <div class="mb-3">
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -128,8 +125,8 @@
                     </div>
                     <div class="">
                         <div class="checkbox-inline">
-                          <label style="margin-bottom: 0; font-size: 14px;" class="checkbox-inline">
-                            <input type="checkbox" value="" id="ads-popup"> Даю <a class="text-primary" data-toggle="modal" data-target="#ads-modal">согласие на получение информационной и рекламной рассылки</a></label>
+                            <label style="margin-bottom: 0; font-size: 14px;" class="checkbox-inline">
+                            <input type="checkbox" value="" onclick="check_ads()" id="ads-popup"> Даю <a class="text-primary" data-toggle="modal" data-target="#ads-modal">согласие на получение информационной и рекламной рассылки</a></label>
                         </div>
                       </div>
                 </div>
