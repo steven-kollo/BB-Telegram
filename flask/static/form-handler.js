@@ -57,7 +57,6 @@ function handle_required_fields(e) {
 
 
 function handle_submit() {
-    window.scrollTo(0,0)
     const selected_services = parse_selected_services()
     button_alert("")
     clear_check_table()
@@ -66,6 +65,8 @@ function handle_submit() {
 
     if (check_filled_fields() && check_personal_fields() && check_privacy_checkbox()) {
         $("#form").submit()
+    } else if (document.getElementById("btn-alert").innerText == "") {
+        window.scrollTo(0,0)
     }
 }
 

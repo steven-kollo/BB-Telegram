@@ -5,7 +5,6 @@ import threading, requests
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
 from parser import parse_user_fields, build_team_tg_text
-# from pymongo import MongoClient
 
 json_url = os.path.join(
     os.path.realpath(os.path.dirname(__file__)), 
@@ -22,7 +21,9 @@ global GROUP_ID
 GROUP_ID = os.environ.get("GROUP_ID")
 global URL
 URL = os.environ.get("URL")
-
+GROUP_ID="-4578478212"
+TOKEN="7027330124:AAGX1qYHaOvcW929LB9GNpfGil1qtrR_MVA"
+URL="127.0.0.1:9091"
 def main():
     application = ApplicationBuilder().token(TOKEN).build()
         
@@ -34,19 +35,17 @@ def main():
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.message.chat.id
     keyboard = [
-        [InlineKeyboardButton("Open form", url=f"{URL}/{chat_id}")]
+        [InlineKeyboardButton("Создать заявку", url=f"{URL}/{chat_id}")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text(
-        # TODO
-        "Hello hello! Fill the form to submit your legal help request pls",
+        "Привет👋\n\nДавай знакомиться - я VVConsultBot, вместе с коллегами буду помогать автоматизировать процессы выполнения задач во ВкусВилл.\n\nЯ помогу тебе выбрать к кому обратиться за помощью😉\n\nЧтобы продолжить общение, открой форму заявки по кнопке «Создать заявку» под сообщением",
         reply_markup=reply_markup
     )
 
 class FlaskThread(threading.Thread):
     def run(self) -> None:
         app = Flask(__name__, static_url_path='/static')
-        #mongo_client = MongoClient("mongo:27017")
         
         @app.route('/<chat_id>', methods=['GET', 'POST'])
         def form(chat_id):
