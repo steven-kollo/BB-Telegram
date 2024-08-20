@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import os, json
+import os, json, time
 from flask import Flask, render_template, request, url_for
 import threading, requests
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
@@ -21,16 +21,16 @@ global GROUP_ID
 GROUP_ID = os.environ.get("GROUP_ID")
 global URL
 URL = os.environ.get("URL")
-# GROUP_ID="-4578478212"
-# TOKEN="7027330124:AAGX1qYHaOvcW929LB9GNpfGil1qtrR_MVA"
-# URL="0.0.0.0"
-def main():
-    application = ApplicationBuilder().token(TOKEN).build()
-        
-    start_handler = CommandHandler('start', start)
-    application.add_handler(start_handler)
 
-    application.run_polling()
+def main():
+    try:
+        application = ApplicationBuilder().token(TOKEN).build()
+        start_handler = CommandHandler('start', start)
+        application.add_handler(start_handler)
+        application.run_polling()
+    except:
+        time.sleep(5)
+        main()
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.message.chat.id
