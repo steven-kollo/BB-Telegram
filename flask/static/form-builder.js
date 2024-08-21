@@ -3,7 +3,7 @@ $(document).ready(function(){
 })
 let groups_json
 fetch("/static/groups.json") 
-    
+    .then(response => response.json()) 
     .then(json => add_services(json.groups))
 
 function add_services(groups) {
