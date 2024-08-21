@@ -85,3 +85,34 @@ input[type=checkbox]:checked + .plus-minus{
   &:before{ transform: rotate(90deg); }
   &:after{ transform: rotate(180deg); }
 }
+
+#policy-content {
+    overflow: scroll; 
+    height: 400px; 
+    padding: 10px;
+}
+
+#policy-content ol {
+    counter-reset: item;
+    padding-left: 10px;
+}
+
+#policy-content ol li {
+    display: block;
+    margin: 4px;
+}
+
+#policy-content ol li::before {
+    margin-right: 7px;
+    content: counters(item, ".") ". "; 
+    counter-increment: item;
+    font-weight: bold;
+}
+.ul-classic li {
+    display: inline;
+}
+
+.ul-classic li::before {
+    display: none;
+    margin-right: 0px;
+}
